@@ -1,7 +1,8 @@
 from datetime import datetime
 
 INGRESO_MENSUAL = float(input("¿Cuál es tu ingreso mensual? $"))
-limite_semanal = INGRESO_MENSUAL / 4.33
+RESERVA_MENSUAL = float(input("¿Cuanto vas a reservar? $"))
+limite_semanal = (INGRESO_MENSUAL - RESERVA_MENSUAL) / 4 
 gastos_semana = []
 total_gastado = 0
 
