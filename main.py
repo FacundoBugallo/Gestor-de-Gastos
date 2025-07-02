@@ -1,42 +1,35 @@
-import datetime
-#"Ino estoy utilizando el modulo datetime actualmente"
-#"mas delante lo utilizare para detectar las semanas automaticamente"
+from datetime import datetime
 
 INGRESO_MENSUAL = float(input("¿Cuál es tu ingreso mensual? $"))
-#"preguntar y obetener el ingreso mensual"
-#"Lo convierte a número decimal (float), porque el input devuelve texto (str)."
-
 limite_semanal = INGRESO_MENSUAL / 4.33
-#"el presupuesto semanal se adquiere"
-#"dividiendo tu ingreso mensual por 4.33 (porque un mes tiene en promedio 4.33 semanas)."
-#"Si ganás $120.000 al mes, tu límite semanal será ~$27.700."
-
 gastos_semana = []
 total_gastado = 0
-#"Una lista vacía gastos_semana, donde se guardarán los gastos semanales"
-#"personales del usuario."
-#"Una variable total_gastado que va sumando el total gastado en la semana."
 
 print(f"Tu límite semanal es: ${limite_semanal:.2f}")
+print("Estas editando tu plan, Añade tus gastos ")
+print("Puedes revisar tu 'historial' o 'salir' del plan")
 
 while True:
-    gasto = input("Ingresá un gasto (o escribí 'salir'): ")
-#    "Este es un bucle que se repite hasta que escribís salir"
-#    "Cada vez que escribís un número, se guarda como un gasto nuevo"
-
-
-    if gasto.lower() == "salir":
+    entrada = input("Ingresá un gasto (o escribí 'salir'): ")
+    if entrada.lower() == "salir":
         break
+
+    elif entrada.lower() == "historial":
+        if not gastos_semana:
+            print("No realizaste ningun gasto")
+        else:
+            print("Tu historial de Gastos:")
+            for i, (monto, fecha) in enumerate(gastos_semana, start=1):
+                print(f"{i}. ${monto:.2f} - {fecha}")
+        continue
+
     try:
-        gasto = float(gasto)
-#        "Intenta convertir el gasto ingresado a número decimal."
-
-        gastos_semana.append(gasto)
-        total_gastado = sum(gastos_semana)
-#        "Agrega el gasto a la lista gastos_semana"
-#        "Calcula la suma total de gastos hasta ahora usando sum(...)"
-
+        gasto = float(entrada)
+        fecha_actual = datetime.now().strftime("%d/%m/%Y %H:%M")
+        gastos_semana.append((gasto, fecha_actual))
+        total_gastado = sum(g[0] for g in gastos_semana)
         restante = limite_semanal - total_gastado
+        
         if restante < 0:
             print(f"🚨 Te pasaste del límite semanal por ${-restante:.2f}!")
         else:
