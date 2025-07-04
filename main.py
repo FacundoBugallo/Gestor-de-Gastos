@@ -7,17 +7,16 @@ gastos_semana = []
 total_gastado = 0
 
 print(f"Tu límite semanal es: ${limite_semanal:.2f}")
-print("Estas editando tu plan, Añade tus gastos ")
-print("Puedes revisar tu 'historial' o 'salir' del plan")
+print("Puedes salir escribiendo 'salir'")
 
 while True:
-    entrada = input("Ingresá un gasto (o escribí 'salir'): ")
+    entrada = input("Ingresá un gasto o revisa tu 'historial': ")
     if entrada.lower() == "salir":
         break
 
     elif entrada.lower() == "historial":
         if not gastos_semana:
-            print("No realizaste ningun gasto")
+            print(f"No realizaste ningun gasto")
         else:
             print("Tu historial de Gastos:")
             for i, (monto, fecha) in enumerate(gastos_semana, start=1):
